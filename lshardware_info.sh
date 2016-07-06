@@ -11,10 +11,6 @@
 # -------------------------------------------------------
 # Script:
 
-TITLE="System information report for $HOSTNAME"
-CURRENT_TIME=`date +%d.%m.%Y.-%H:%M:%S`
-TIME_STAMP="Generated $CURRENT_TIME, by $USER"
-
 cpu_info () {
   echo "
           <H2>Cpu</H2>
@@ -63,18 +59,24 @@ write_html_page () {
   <!-- Page Content -->
   <div id="page-content-wrapper">
       <div class="container-fluid">
-          <div class="row">
+
+          <div class="row text-center">
               <div class="col-lg-12">
                   <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
-                  <h1>System information</h1>
-                    <h2>$TITLE</h2>
-                         <p>$TIME_STAMP</p>
-                           $(cpu_info)
-                           $(pci_info)
-                           $(sata_drives)
-                           $(usb_drives)
+                  <h1>LS Hardware information</h1>
               </div>
           </div>
+
+          <div class=row>
+              <div class="col-lg-12">
+                  <h2>$TITLE</h2>
+                  $(cpu_info)
+                  $(pci_info)
+                  $(sata_drives)
+                  $(usb_drives)
+              </div>
+          </div>
+
       </div>
   </div>
   <!-- /#page-content-wrapper -->
