@@ -4,18 +4,21 @@
 # Info:
 # 	Miroslav Vidovic
 # 	basic-info.sh
-# 	16.01.2016.-14:22:39
+# 	02.07.2016.-14:22:39
 # -------------------------------------------------------
 # Description:
 #   Program to output a system information page in html.
 # -------------------------------------------------------
 # Script:
 
-TITLE="Report for $HOSTNAME"
-CURRENT_TIME=`date +%d.%m.%Y.-%H:%M:%S`
-TIME_STAMP="Generated $CURRENT_TIME, by $USER"
+services(){
+     echo "
+          <h2> + runing | - not running </h2>
+          <PRE>$(sudo service --status-all)</PRE>
+    "
+    return
+}
 
-# Form and write the HTML page
 write_html_page () {
   cat ../templates/header.html
   cat ../templates/menu.html
@@ -23,28 +26,17 @@ write_html_page () {
   <!-- Page Content -->
   <div id="page-content-wrapper">
       <div class="container-fluid">
-
           <div class="row text-center">
               <div class="col-lg-12">
                   <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
-                  <h1>System information</h1>
-                  <h2>$TITLE</h2>
-                  <p>$TIME_STAMP</p>
+                  <h1>Services information</h1>
               </div>
           </div>
 
-          <div class="row text-center">
-
-              <div class="col-lg-4">
+          <div class="row">
+              <div class="clo-lg-12">
+                  $(services)
               </div>
-
-              <div class="col-lg-4">
-                  <img class="img-responsive" src="images/sys_info.png"/>
-              </div>
-
-              <div class="col-lg-4">
-              </div>
-
           </div>
 
       </div>
@@ -56,6 +48,6 @@ cat ../templates/footer.html
 return
 }
 
-write_html_page > ../public_html/index.html
+write_html_page > ../public_html/services.html
 
 exit 0
